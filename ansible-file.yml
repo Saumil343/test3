@@ -1,0 +1,37 @@
+---
+- hosts: gp1
+  tasks:
+    - name: Install Jenkins
+      shell: sudo yum install jenkins -y
+
+    - name: start jenkins
+      shell: sudo systemctl start jenkins
+
+    - name: Installing git
+      shell: sudo yum install git -y
+
+    - name: Installing Apache
+      shell: sudo yum install httpd -y
+    
+    - name: start apache
+      shell: sudo systemctl start httpd
+
+    - name: Cleaning Webserver
+      shell: rm -rf /var/www/html/*
+
+    - name: cleaning files
+      shell: rm -rf ~/test1
+
+    - name: git pull
+      shell: git clone https://github.com/Saumil343/test1.git
+
+    - name: git copy
+      shell: cp -r ~/test1 /var/www/html/
+      
+    - name: service restart
+      service:
+        name: httpd
+        state: restarted
+
+      
+  
